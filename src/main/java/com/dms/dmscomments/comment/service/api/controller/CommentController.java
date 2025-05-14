@@ -16,6 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,5 +57,10 @@ public class CommentController {
     public ResponseEntity<Page<CommentOutput>> list(@PageableDefault Pageable pageable) {
         Page<CommentOutput> comments = commentService.list(pageable);
         return ResponseEntity.ok(comments);
+    }
+
+    @GetMapping("/{commentId}")
+    public ResponseEntity<CommentOutput> getComment(@PathVariable CommentId commentId) {
+        return ResponseEntity.of(commentService.fetchById(commentId));
     }
 }
