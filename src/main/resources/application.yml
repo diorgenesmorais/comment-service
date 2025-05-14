@@ -1,2 +1,20 @@
 spring:
-  application.name: comment-service
+  application:
+    name: comment-service
+  datasource:
+    username: sa
+    url: jdbc:h2:file:~/dmscomment-service-db;CASE_INSENSITIVE_IDENTIFIERS=TRUE;
+    driverClassName: org.h2.Driver
+    password: '123'
+  h2:
+    console:
+      enabled: 'true'
+      settings.web-allow-others: 'true'
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+  webclient:
+    connect-timeout: 5000 # em ms
+    read-timeout: 10000
