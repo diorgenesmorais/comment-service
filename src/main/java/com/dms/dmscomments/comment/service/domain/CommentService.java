@@ -19,6 +19,10 @@ public class CommentService {
 
         Comment commentSaved = commentRepository.save(comment);
 
+        return getModel(commentSaved);
+    }
+
+    private CommentOutput getModel(Comment commentSaved) {
         return CommentOutput.builder()
                 .id(commentSaved.getId().toString())
                 .text(commentSaved.getText())
@@ -29,11 +33,6 @@ public class CommentService {
 
     public Page<CommentOutput> list(Pageable pageable) {
         return commentRepository.findAll(pageable)
-                .map(comment -> CommentOutput.builder()
-                        .id(comment.getId().toString())
-                        .text(comment.getText())
-                        .author(comment.getAuthor())
-                        .createdAt(comment.getCreatedAt().toString())
-                        .build());
+                .map(this::getModel);
     }
 }
